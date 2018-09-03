@@ -19,9 +19,9 @@ let GOT = function HTTPSGET(opt)
   https.get(opt, function (res)
   {
     res.setEncoding("utf8");
-    res.on('data', function (data)
+    res.on('readable', function (data)
     {
-      tmpData += res.read();
+      tmpData += res.push(data);
       res.on('end', function ()
       {
         return onEnd(res);
