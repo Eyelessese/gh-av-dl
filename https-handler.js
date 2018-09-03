@@ -11,7 +11,7 @@ let options = reqOpt('example.com', '/');
 let onEnd = function onResponseEnd(buffer)
 {
  console.log('Response complete.');
- console.log(buffer);
+ return buffer.toString();
 };
 
 let GOT = function HTTPSGET(opt)
@@ -21,10 +21,10 @@ let GOT = function HTTPSGET(opt)
     res.setEncoding("utf8");
     res.on('data', function (data)
     {
-      tmpData += data;
+      tmpData += res.read();
       res.on('end', function ()
       {
-        onEnd(tmpData);
+        return onEnd(res);
       });
     });
   });
